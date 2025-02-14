@@ -1,9 +1,7 @@
-using System.Text;
-using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Http;
 using Cinema_API.Data;
 using Cinema_API.Models;
 using Cinema_API.Services;
@@ -22,32 +20,33 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 
 builder.Services.AddTransient<IAppEmailSender, SmtpEmailSender>();
 
-var jwtSettings = builder.Configuration.GetSection("Jwt");
-builder.Services.AddAuthentication(options =>
+builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters
+    options.LoginPath = "/Account/Login";
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+
+    options.Events.OnRedirectToLogin = context =>
     {
-        ValidateIssuerSigningKey = false,
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = false
-    };
-    options.Events = new JwtBearerEvents
-    {
-        OnAuthenticationFailed = context =>
+        if (context.Request.Path.StartsWithSegments("/api"))
         {
-            Console.WriteLine("Authentication failed: " + context.Exception.Message);
-            Console.WriteLine(context.Exception.StackTrace);
-            return Task.CompletedTask;
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            return System.Threading.Tasks.Task.CompletedTask;
         }
+        context.Response.Redirect(context.RedirectUri);
+        return System.Threading.Tasks.Task.CompletedTask;
     };
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
 });
 
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -55,16 +54,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     options.JsonSerializerOptions.WriteIndented = true;
-});
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -86,7 +75,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowAll");
+app.UseCors("AllowSpecificOrigin");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
