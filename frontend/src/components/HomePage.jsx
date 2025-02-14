@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import MovieCard from './MovieCard';
@@ -32,7 +33,7 @@ const HomePage = () => {
   return (
     <Layout>
       <section className="homepage-section">
-        <h2>Now Showing</h2>
+        <h2 style={{fontWeight: "600"}}>Now Showing</h2>
         <Slider {...settings}>
           {movies.map(movie => (
             <MovieCard key={movie.id} movie={movie} />
