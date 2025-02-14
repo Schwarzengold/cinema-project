@@ -1,0 +1,61 @@
+/* src/components/TicketTypeSelection.css */
+.ticket-selection {
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    color: #fff;
+  }
+  
+  .ticket-selection h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+  }
+  
+  .ticket-list {
+    margin-bottom: 20px;
+  }
+  
+  .ticket-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #2c2c2c;
+    border-radius: 4px;
+  }
+  
+  .ticket-item .seat-label {
+    font-size: 1.1rem;
+    color: #ccc;
+  }
+  
+  .ticket-item select {
+    padding: 5px;
+    font-size: 1rem;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .continue-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #e50914;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .continue-btn:hover {
+    background-color: #b00610;
+  }
+  
