@@ -54,5 +54,24 @@ namespace Cinema_API.Controllers
             return BadRequest("Email confirmation error");
         }
 
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+                return Unauthorized("Invalid credentials");
+
+            if (!await _userManager.IsEmailConfirmedAsync(user))
+                return Unauthorized("Email not confirmed");
+
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
+            if (!result.Succeeded)
+                return Unauthorized("Invalid credentials");
+
+            return Ok(new { Message = "Login successful" });
+        }
     }
 }
