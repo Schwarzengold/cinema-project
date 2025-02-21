@@ -8,6 +8,9 @@
   }
   
   .registration-container h2 {
+    font-family: 'Gordita', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
     text-align: center;
     margin-bottom: 20px;
     color: #fff;
@@ -19,6 +22,7 @@
   }
   
   .registration-container input {
+    font-family: 'Gordita', sans-serif;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #333;
@@ -29,8 +33,10 @@
   }
   
   .registration-container button {
+    font-family: 'Gordita', sans-serif;
+    font-weight: 500;
     padding: 10px;
-    background-color: #e50914;
+    background-color: #ad141c;
     border: none;
     border-radius: 4px;
     color: #fff;
@@ -39,10 +45,11 @@
   }
   
   .registration-container button:hover {
-    background-color: #b00610;
+    background-color: #851016;
   }
   
   .registration-container .message {
+    font-family: 'Gordita', sans-serif;
     text-align: center;
     margin-top: 15px;
     color: #ccc;
@@ -56,11 +63,13 @@
   }
   
   .password-input-wrapper input {
+    font-family: 'Gordita', sans-serif;
     flex: 1;
     padding-right: 50px;
   }
   
   .toggle-password {
+    font-family: 'Gordita', sans-serif;
     position: absolute;
     right: 10px;
     background: none;

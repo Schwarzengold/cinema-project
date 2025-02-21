@@ -1,29 +1,94 @@
+.homepage-section {
+  position: relative;
+  background-color: #121212;
+  padding: 20px 0;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 70vh;
+  margin-top: 20px;
+  overflow: hidden;
+  z-index: 0;
+  margin-bottom: 60px;
+}
 
-.homepage {
-    padding: 40px 20px;
-    background: #f7f7f7;
-  }
-  
-  .homepage header {
-    margin-bottom: 20px;
-  }
-  
-  .homepage h1, h2 {
-    font-size: 2.5rem;
-    letter-spacing: 1.5px;
-    color: #fff;
-  }
+.homepage-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--bg-image);
+  background-size: 150%;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(10px) brightness(54%);
+  transition: background-image 1s ease-in-out;
+}
 
-  
-  .homepage-section {
-    padding: 20px;
-    background-color: #121212;
-  }
-  
-  .homepage-section h2 {
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #fff;
-  }
-  
+.homepage-header {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.homepage-header h2 {
+  font-weight: 600;
+  color: #fff;
+  margin-left: 210px;
+  font-size: 1.8rem;
+}
+
+.section-divider {
+  border: 0;
+  height: 2px;
+  background-color: #fff;
+  width: 75% !important;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.movie-slider {
+  position: relative;
+}
+
+.movie-slider .slick-list {
+  padding-bottom: 25px !important;
+  margin-left: 65px;
+}
+
+.movie-slider .slick-center .movie-card {
+  transform: scale(1.15) !important;
+  z-index: 2;
+}
+
+.movie-slider .slick-slide:not(.slick-center) .movie-card {
+  filter: brightness(0.6);
+  transition: filter 0.3s ease;
+}
+
+.slick-dots li button:before {
+  margin-top: 15px;
+  font-size: 10px;
+  color: #fff;
+}
+.slick-dots li.slick-active button:before {
+  color: #e50914;
+}
+
+.slick-prev, .slick-next {
+  width: 20px;
+  height: 20px;
+  z-index: 100;
+}
+
+.slick-prev:before, .slick-next:before {
+  font-size: 40px;
+  color: #8b0e0e;
+}
+
+.slick-prev {
+  left: 10px;
+}
+
+.slick-next {
+  right: 30px;
+}
+

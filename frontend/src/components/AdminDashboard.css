@@ -1,0 +1,140 @@
+.admin-dashboard-section {
+  position: relative;
+  width: 100%;
+  min-height: 70vh;
+  padding: 40px 20px;
+  margin-bottom: 60px;
+  overflow: hidden;
+  background-color: #0a0a0a;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(110, 0, 0, 0.30), transparent 40%),
+    radial-gradient(circle at 80% 75%, rgba(110, 0, 0, 0.25), transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(110, 0, 0, 0.20), transparent 40%),
+    linear-gradient(90deg, rgba(0,0,0,1) 70%, rgba(53, 0, 0, 0.158) 100%);
+}
+
+.admin-dashboard-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.admin-dashboard-header h2 {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.section-divider {
+  border: 0;
+  height: 2px;
+  background-color: #fff;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.error-message {
+  color: #b6141c; 
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.admin-actions {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.add-movie-btn {
+  padding: 12px 24px;
+  background-color: #b6141c;
+  border: none;
+  border-radius: 50px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-movie-btn:hover {
+  background-color: #8f151b; 
+  transform: translateY(-2px);
+}
+
+.admin-movie-list {
+  list-style: none;
+  padding: 0;
+  max-width: 1000px;
+  margin: 0 auto; 
+}
+
+
+.movie-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1a1a1a;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  transition: box-shadow 0.3s ease;
+}
+
+.movie-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+.movie-info {
+  flex: 1;
+}
+
+.movie-title {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.movie-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.movie-actions button {
+  font-family: 'Gordita', sans-serif;
+  font-size: 15px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.edit-btn {
+  background-color: #ff9900;
+}
+.edit-btn:hover {
+  background-color: #cc7a00;
+  transform: translateY(-2px);
+}
+
+.sessions-btn {
+  background-color: #008080;
+}
+.sessions-btn:hover {
+  background-color: #006666;
+  transform: translateY(-2px);
+}
+
+.delete-btn {
+  background-color: #b6141c;
+}
+.delete-btn:hover {
+  background-color: #911117;
+  transform: translateY(-2px);
+}
