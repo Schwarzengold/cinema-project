@@ -21,7 +21,7 @@ const MovieDetails = () => {
         setIsLoading(false);
       })
       .catch(err => {
-        console.error("Film get error:", err);
+        console.error("Movie get error:", err);
         setIsLoading(false);
       });
 
@@ -33,7 +33,7 @@ const MovieDetails = () => {
           : (data.$values ? data.$values : []);
         setSessions(sessionsArray);
       })
-      .catch(err => console.error("Session error:", err));
+      .catch(err => console.error("Session get error:", err));
   }, [id]);
 
   const handleBuyTicket = (sessionId) => {
@@ -44,7 +44,7 @@ const MovieDetails = () => {
     return (
       <Layout>
         <div className="loading-message">
-          <p>Load info...</p>
+          <p>Load movie data...</p>
         </div>
       </Layout>
     );
@@ -54,7 +54,7 @@ const MovieDetails = () => {
     return (
       <Layout>
         <div className="loading-message">
-          <p>No film found or error</p>
+          <p>No movie found or error.</p>
         </div>
       </Layout>
     );
@@ -91,14 +91,14 @@ const MovieDetails = () => {
 
           {sessions.length === 0 ? (
             <p className="no-sessions-message">
-              No sessions avaible now.
+              No active sessions on this movie
             </p>
           ) : (
             <div className="sessions-grid">
               {sessions.map((session) => (
                 <div key={session.id} className="session-card">
                   <div className="session-info">
-                    <p>Hall: {session.cinemaHall?.name || "No Data"}</p>
+                    <p>Hall: {session.cinemaHall?.name || "No data"}</p>
                     <p>Start: {new Date(session.startTime).toLocaleString()}</p>
                   </div>
                   <button
