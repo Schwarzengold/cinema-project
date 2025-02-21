@@ -62,16 +62,17 @@ namespace Cinema_API.Controllers
 
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
-                return Unauthorized("Invalid credentials");
+                return Unauthorized(new { Message = "Invalid credentials" });
 
             if (!await _userManager.IsEmailConfirmedAsync(user))
-                return Unauthorized("Email not confirmed");
+                return Unauthorized(new { Message = "Email not confirmed" });
 
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
             if (!result.Succeeded)
-                return Unauthorized("Invalid credentials");
+                return Unauthorized(new { Message = "Invalid credentials" });
 
             return Ok(new { Message = "Login successful" });
         }
+
     }
 }
