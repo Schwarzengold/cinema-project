@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Layout from './Layout';
@@ -19,7 +18,6 @@ const SeatSelection = () => {
     fetch(`${API_BASE_URL}/api/sessions/${sessionId}/seats`)
       .then(response => response.json())
       .then(data => {
-        
         const seatsArray = Array.isArray(data)
           ? data
           : (data.$values ? data.$values : []);
@@ -47,7 +45,6 @@ const SeatSelection = () => {
     navigate(`/ticket-type-selection?sessionId=${sessionId}&seats=${selectedSeats.join(',')}`);
   };
 
-
   const groupedSeats = seats.reduce((acc, seat) => {
     const row = seat.row;
     if (!acc[row]) {
@@ -56,7 +53,6 @@ const SeatSelection = () => {
     acc[row].push(seat);
     return acc;
   }, {});
-
 
   const sortedRows = Object.keys(groupedSeats).sort((a, b) => a - b);
 
