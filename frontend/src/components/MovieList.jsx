@@ -22,14 +22,18 @@ const MovieList = () => {
 
   return (
     <Layout>
-      <div className="movie-list">
-        <h2>All movies</h2>
+      <section className="movie-list-section">
+        <div className="movie-list-header">
+          <h2>All Movies</h2>
+          <hr className="section-divider" />
+        </div>
+        
         <div className="movie-grid">
           {movies.map(movie => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
         </div>
-      </div>
+      </section>
     </Layout>
   );
 };

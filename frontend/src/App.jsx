@@ -9,6 +9,9 @@ import SeatSelection from './components/SeatSelection';
 import TicketTypeSelection from './components/TicketTypeSelection';
 import Payment from './components/Payment';
 import Confirmation from './components/Confirmation';
+import AdminDashboard from './components/AdminDashboard';
+import AdminMovieForm from './components/AdminMovieForm';
+import AdminSessions from './components/AdminSessions';
 
 function App() {
   return (
@@ -23,6 +26,10 @@ function App() {
         <Route path="/ticket-type-selection" element={<TicketTypeSelection />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/confirmation" element={<Confirmation />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/movies/create" element={<AdminMovieForm mode="create" />} />
+        <Route path="/admin/movies/edit/:id" element={<AdminMovieForm mode="edit" />} />
+        <Route path="/admin/movies/:id/sessions" element={<AdminSessions />} />
       </Routes>
     </Router>
   );

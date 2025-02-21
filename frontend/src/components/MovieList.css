@@ -1,17 +1,43 @@
-.movie-list {
-  padding: 20px;
-  background-color: #121212;
-  color: #fff;
+.movie-list-section {
+  position: relative;
+  width: 100%;
+  min-height: 70vh;          
+  padding: 40px 0px;        
+  overflow: hidden;          
+  margin-bottom: 60px;
+  background-color: #0a0a0a;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(110, 0, 0, 0.30), transparent 40%),
+    radial-gradient(circle at 80% 75%, rgba(110, 0, 0, 0.25), transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(110, 0, 0, 0.20), transparent 40%),
+    linear-gradient(90deg, rgba(0,0,0,1) 70%, rgba(53, 0, 0, 0.158) 100%);
 }
 
-.movie-list h2 {
+.movie-list-header {
   text-align: center;
+  margin-bottom: 25px;
+}
+
+.movie-list-header h2 {
+  color: #fff;
   font-size: 2rem;
-  margin-bottom: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.section-divider {
+  border: 0;
+  height: 2px;
+  background-color: #fff;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 30px;
 }
 
 .movie-grid {
+  max-width: 1200px; 
+  margin: 0 auto;    
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 26px; 
 }

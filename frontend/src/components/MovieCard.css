@@ -1,45 +1,64 @@
+
 .movie-card {
-  background: #1e1e1e;
+  font-family: 'Gordita', sans-serif;
+  width: 220px; 
+  background: transparent;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.2s ease, filter 0.2s ease !important;
   margin: 10px;
   cursor: pointer;
+  max-width: 300px;
 }
 
 .movie-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.7);
+  filter: brightness(100%) !important;
+  transform: translateY(-6px);
+  
 }
 
 .movie-card img {
   width: 100%;
-  height: 200px;
+  height: 320px; 
   object-fit: cover;
 }
 
 .movie-card-info {
+  font-weight: 500;
   padding: 15px;
   text-align: center;
 }
 
 .movie-card-info h3 {
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   color: #fff;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.release-date {
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  color: #bbb;
+  
 }
 
 .movie-card-info button {
+  display: block;
+  font-weight: 700;
   padding: 10px;
   width: 100%;
-  background: #e50914;
+  background: #b6141c;
   border: none;
-  border-radius: 4px;
+  border-radius: 50px;
   color: #fff;
   font-size: 1rem;
   transition: background 0.3s ease;
+  cursor: pointer;
+  margin-top: 10px;
+  font-family: 'Gordita', sans-serif;
 }
 
 .movie-card-info button:hover {
-  background: #b00610;
+  background: #8b1016;
 }
