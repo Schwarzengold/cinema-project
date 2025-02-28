@@ -6,7 +6,7 @@ import './Confirmation.css';
 const Confirmation = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const message = state && state.message ? state.message : "Booking confirmed!";
+  const message = state && state.message ? state.message : "Booking confirmed! Please, check you email for further details.";
 
   const handleReturn = () => {
     navigate("/");

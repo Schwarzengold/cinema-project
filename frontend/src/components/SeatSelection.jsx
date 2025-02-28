@@ -55,17 +55,19 @@ const SeatSelection = () => {
   }, {});
 
   const sortedRows = Object.keys(groupedSeats).sort((a, b) => a - b);
-
+  console.log("sortedRows:", sortedRows);
   return (
     <Layout>
       <h2 className='header-seats'>Select Seats</h2>
       <div className="seat-grid">
       <h2 className='screen-header'>S  c  r  e  e  n</h2>
-      <h2 className='line-header'>――――――――――――――――――――――</h2>
+      <h2 className='line-header'></h2>
         {sortedRows.map(row => (
           <div key={row} className="seat-row">
             <div className="row-label">Row {row}</div>
-            <div className="row-seats">
+            <div 
+              className={`${sortedRows.length > 3 ? 'large-rows' : 'small-rows'}`}
+            >
               {groupedSeats[row].sort((a, b) => a.number - b.number).map(seat => (
                 <div
                   key={seat.id}

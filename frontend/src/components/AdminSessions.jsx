@@ -15,7 +15,10 @@ const AdminSessions = () => {
   const [formData, setFormData] = useState({
     movieId: id,
     cinemaHallId: "",
-    startTime: ""
+    startTime: "",
+    adultPrice: 0,
+    childPrice: 0,
+    disabledPrice: 0
   });
 
   useEffect(() => {
@@ -24,21 +27,12 @@ const AdminSessions = () => {
     })
       .then(res => {
         if (!res.ok) {
-          return res.text().then(text => {
-            throw new Error(text || "Failed to fetch sessions");
-          });
+          return res.text().then(text => { throw new Error(text || "Failed to fetch sessions"); });
         }
         return res.json();
       })
       .then(data => {
-        if (data && data.$values) {
-          setSessions(data.$values);
-        } else if (Array.isArray(data)) {
-          setSessions(data);
-        } else {
-          console.error("Unexpected sessions data:", data);
-          setSessions([]);
-        }
+        setSessions(Array.isArray(data) ? data : (data.$values || []));
       })
       .catch(err => {
         console.error(err);
@@ -47,14 +41,10 @@ const AdminSessions = () => {
   }, [id]);
 
   useEffect(() => {
-    fetch("https://localhost:7091/api/cinemaHalls", {
-      credentials: "include"
-    })
+    fetch("https://localhost:7091/api/cinemaHalls", { credentials: "include" })
       .then(res => {
         if (!res.ok) {
-          return res.text().then(text => {
-            throw new Error(text || "Failed to load halls");
-          });
+          return res.text().then(text => { throw new Error(text || "Failed to load halls"); });
         }
         return res.json();
       })
@@ -65,14 +55,13 @@ const AdminSessions = () => {
           setHalls(data);
         } else {
           console.error("Unexpected halls data:", data);
-          setHalls([]); 
+          setHalls([]);
         }
       })
       .catch(err => {
         console.error("Failed to load halls:", err);
       });
   }, []);
-  
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -88,7 +77,10 @@ const AdminSessions = () => {
         body: JSON.stringify({
           movieId: parseInt(formData.movieId),
           cinemaHallId: parseInt(formData.cinemaHallId),
-          startTime: formData.startTime
+          startTime: formData.startTime,
+          adultPrice: parseFloat(formData.adultPrice),
+          childPrice: parseFloat(formData.childPrice),
+          disabledPrice: parseFloat(formData.disabledPrice)
         })
       });
       if (!response.ok) {
@@ -96,15 +88,14 @@ const AdminSessions = () => {
         throw new Error(errorText || "Failed to create session");
       }
       const newSession = await response.json();
-      let finalSession = newSession;
-      if (newSession && newSession.$id && newSession.$values && newSession.$values[0]) {
-        finalSession = newSession.$values[0];
-      }
-      setSessions([...sessions, finalSession]);
+      setSessions([...sessions, newSession]);
       setFormData({
         movieId: id,
         cinemaHallId: "",
-        startTime: ""
+        startTime: "",
+        adultPrice: 0,
+        childPrice: 0,
+        disabledPrice: 0
       });
     } catch (err) {
       console.error(err);
@@ -117,7 +108,10 @@ const AdminSessions = () => {
     setFormData({
       movieId: session.movieId.toString(),
       cinemaHallId: session.cinemaHallId.toString(),
-      startTime: session.startTime ? session.startTime.substring(0, 16) : ""
+      startTime: session.startTime ? session.startTime.substring(0, 16) : "",
+      adultPrice: session.adultPrice,
+      childPrice: session.childPrice,
+      disabledPrice: session.disabledPrice
     });
   };
 
@@ -131,7 +125,10 @@ const AdminSessions = () => {
         body: JSON.stringify({
           movieId: parseInt(formData.movieId),
           cinemaHallId: parseInt(formData.cinemaHallId),
-          startTime: formData.startTime
+          startTime: formData.startTime,
+          adultPrice: parseFloat(formData.adultPrice),
+          childPrice: parseFloat(formData.childPrice),
+          disabledPrice: parseFloat(formData.disabledPrice)
         })
       });
       if (!response.ok) {
@@ -139,19 +136,18 @@ const AdminSessions = () => {
         throw new Error(errorText || "Failed to edit session");
       }
       const updatedSession = await response.json();
-      let finalSession = updatedSession;
-      if (updatedSession && updatedSession.$id && updatedSession.$values && updatedSession.$values[0]) {
-        finalSession = updatedSession.$values[0];
-      }
       const newSessions = sessions.map(s =>
-        s.id === editingSessionId ? finalSession : s
+        s.id === editingSessionId ? updatedSession : s
       );
       setSessions(newSessions);
       setEditingSessionId(null);
       setFormData({
         movieId: id,
         cinemaHallId: "",
-        startTime: ""
+        startTime: "",
+        adultPrice: 0,
+        childPrice: 0,
+        disabledPrice: 0
       });
     } catch (err) {
       console.error(err);
@@ -208,6 +204,45 @@ const AdminSessions = () => {
                 onChange={handleChange}
                 required
               />
+
+              <div className='price-group'>
+                <div className='price-type'>
+                  <label>Adult Price</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    name="adultPrice"
+                    value={formData.adultPrice}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className='price-type'>
+                  <label>Child Price</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    name="childPrice"
+                    value={formData.childPrice}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className='price-type'>
+                  <label>Disabled Price</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    name="disabledPrice"
+                    value={formData.disabledPrice}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              </div>  
+
               <button type="submit">Add Session</button>
             </form>
           </>
@@ -237,12 +272,58 @@ const AdminSessions = () => {
                 onChange={handleChange}
                 required
               />
+              
+              <div className='price-group'>
+                <div className='price-type'>
+                  <label>Adult Price</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    name="adultPrice"
+                    value={formData.adultPrice}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className='price-type'>
+                  <label>Child Price</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    name="childPrice"
+                    value={formData.childPrice}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className='price-type'>
+                  <label>Disabled Price</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    name="disabledPrice"
+                    value={formData.disabledPrice}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              </div>  
+
               <button type="submit">Save Changes</button>
               <button
                 type="button"
                 onClick={() => {
                   setEditingSessionId(null);
-                  setFormData({ movieId: id, cinemaHallId: "", startTime: "" });
+                  setFormData({
+                    movieId: id,
+                    cinemaHallId: "",
+                    startTime: "",
+                    adultPrice: 0,
+                    childPrice: 0,
+                    disabledPrice: 0
+                  });
                 }}
               >
                 Cancel
@@ -250,10 +331,9 @@ const AdminSessions = () => {
             </form>
           </>
         )}
-
         <ul>
           {sessions.map(session => (
-            <li key={session.id}>
+            <li key={session.id}> 
               Hall: {session.cinemaHallId}, Starts: {session.startTime}
               <div>
                 <button onClick={() => handleEditClick(session)}>Edit</button>

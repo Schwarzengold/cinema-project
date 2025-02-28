@@ -4,7 +4,7 @@ import './Navbar.css';
 
 const Navbar = () => {
   const userEmail = localStorage.getItem('userEmail');
-  const isAdmin = userEmail && userEmail.toLowerCase() === "shonchik322@gmail.com";
+  const isAdmin = userEmail && userEmail.toLowerCase() === "admin@gmail.com";
   const navigate = useNavigate();
 
   const handleLogout = () => {

@@ -125,3 +125,16 @@
   background-color: #7a0f14;
   transform: translateY(-2px);
 }
+
+.price-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.price-type {
+  align-items: center;
+  display: flex ;
+  flex-direction: column;
+  justify-content: center;
+}

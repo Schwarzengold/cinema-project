@@ -64,7 +64,7 @@
   transform: translateY(-2px);
 }
 
-.admin-movie-list {
+.admin-movie-list { 
   list-style: none;
   padding: 0;
   max-width: 1000px;
