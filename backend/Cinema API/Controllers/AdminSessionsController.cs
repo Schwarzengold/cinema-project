@@ -41,10 +41,10 @@ namespace Cinema_API.Controllers
             var hall = await _context.CinemaHalls.FindAsync(session.CinemaHallId);
             if (hall == null)
                 return BadRequest("Cinema hall does not exist.");
-
             _context.Sessions.Add(session);
             await _context.SaveChangesAsync();
             await GenerateSeatsForSession(session.Id, hall.TotalRows, hall.SeatsPerRow);
+
             return Ok(session);
         }
 
@@ -58,6 +58,9 @@ namespace Cinema_API.Controllers
             session.MovieId = updatedSession.MovieId;
             session.CinemaHallId = updatedSession.CinemaHallId;
             session.StartTime = updatedSession.StartTime;
+            session.AdultPrice = updatedSession.AdultPrice;
+            session.ChildPrice = updatedSession.ChildPrice;
+            session.DisabledPrice = updatedSession.DisabledPrice;
 
             await _context.SaveChangesAsync();
             return Ok(session);

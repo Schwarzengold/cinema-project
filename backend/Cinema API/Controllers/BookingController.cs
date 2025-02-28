@@ -78,16 +78,58 @@ namespace Cinema_API.Controllers
             return Ok(new { Message = "Booking confirmed successfully." });
         }
 
-        private async Task SendConfirmationEmailAsync(string userId, System.Collections.Generic.List<Seat> bookedSeats)
+        private async Task SendConfirmationEmailAsync(string userId, List<Seat> bookedSeats)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if (user == null) return; 
+            if (user == null) return;
+
             var session = bookedSeats.FirstOrDefault()?.Session;
             if (session == null) return;
 
             await _context.Entry(session).Reference(s => s.Movie).LoadAsync();
+            var dbSession = await _context.Sessions.FindAsync(session.Id);
+            if (dbSession == null) return;
+
+            decimal totalCost = 0;
+            var seatList = new List<string>();
+            foreach (var seat in bookedSeats)
+            {
+                var ticket = await _context.Tickets
+                   .Where(t => t.SeatId == seat.Id && t.UserId == userId)
+                   .FirstOrDefaultAsync();
+
+                if (ticket == null) continue;
+
+                decimal price = 0;
+                switch (ticket.TicketType)
+                {
+                    case TicketType.Adult:
+                        price = dbSession.AdultPrice;
+                        break;
+                    case TicketType.Child:
+                        price = dbSession.ChildPrice;
+                        break;
+                    case TicketType.Disabled:
+                        price = dbSession.DisabledPrice;
+                        break;
+                }
+                totalCost += price;
+
+                seatList.Add($"Row {seat.Row}, Seat {seat.Number} ({ticket.TicketType}) - {price:C}");
+            }
+
+            var seatDetails = string.Join("<br>", seatList);
             var movieTitle = session.Movie?.Title ?? "Unknown Movie";
-            var emailBody = BuildEmailBody(movieTitle, session, bookedSeats);
+
+            var emailBody = $@"
+        <h2>Thank you for your purchase!</h2>
+        <p><strong>Movie:</strong> {movieTitle}</p>
+        <p><strong>Date/Time:</strong> {session.StartTime}</p>
+        <p><strong>Your Seats:</strong> <br>{seatDetails}</p>
+        <p><strong>Total Cost:</strong> {totalCost:C}</p>
+        <p>Enjoy the show!</p>
+    ";
+
             await _emailSender.SendEmailAsync(
                 user.Email,
                 "Your Ticket Confirmation",

@@ -18,6 +18,15 @@ namespace Cinema_API.Models
 
         public DateTime StartTime { get; set; }
 
+        [Range(0, 9999)]
+        public decimal AdultPrice { get; set; }
+
+        [Range(0, 9999)]
+        public decimal ChildPrice { get; set; }
+
+        [Range(0, 9999)]
+        public decimal DisabledPrice { get; set; }
+
         public ICollection<Seat>? Seats { get; set; }
     }
 }
