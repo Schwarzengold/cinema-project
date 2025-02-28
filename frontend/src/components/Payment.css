@@ -15,21 +15,29 @@
 }
 
 .payment-details {
+  font-weight: 400;
   margin-bottom: 20px;
   line-height: 1.5;
+}
+
+.bold-font {
+  font-weight: 500;
+  color: white;
 }
 
 .payment-details p {
   margin-bottom: 10px;
   font-size: 1.1rem;
-  color: #ccc;
+  color: #e6e6e6;
 }
 
 .payment-btn {
+  font-family: 'Gordita', sans-serif;
+  font-weight: 600;
   display: block;
   width: 100%;
   padding: 12px;
-  background-color: #e50914;
+  background-color: #b6141c;
   border: none;
   border-radius: 4px;
   color: #fff;
@@ -38,5 +46,5 @@
 }
 
 .payment-btn:hover {
-  background-color: #b00610;
+  background-color: #880f15;
 }
