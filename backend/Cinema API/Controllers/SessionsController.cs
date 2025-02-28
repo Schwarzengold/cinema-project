@@ -26,6 +26,17 @@ namespace Cinema_API.Controllers
 
             return Ok(sessions);
         }
+        [HttpGet("{sessionId}")]
+        public async Task<IActionResult> GetSession(int sessionId)
+        {
+            var session = await _context.Sessions
+                .Include(s => s.CinemaHall)
+                .Include(s => s.Movie)
+                .FirstOrDefaultAsync(s => s.Id == sessionId);
+            if (session == null)
+                return NotFound();
+            return Ok(session);
+        }
 
         [HttpGet("{sessionId}/seats")]
         public async Task<IActionResult> GetSeats(int sessionId)
