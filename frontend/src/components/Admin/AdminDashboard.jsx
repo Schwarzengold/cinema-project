@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Layout from './Layout';
-import './AdminDashboard.css';
+import Layout from '../Main/Layout';
+import '../Admin/AdminDashboard.css';
 
 const AdminDashboard = () => {
   const [movies, setMovies] = useState([]);

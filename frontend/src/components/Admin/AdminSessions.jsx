@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Layout from './Layout';
-import './AdminSessions.css';
+import Layout from '../Main/Layout';
+import '../Admin/AdminSessions.css';
 
 const AdminSessions = () => {
   const { id } = useParams();

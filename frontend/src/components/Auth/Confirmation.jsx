@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Layout from './Layout';
-import './Confirmation.css';
+import Layout from '../Main/Layout';
+import '../Auth/Confirmation.css';
 
 const Confirmation = () => {
   const navigate = useNavigate();

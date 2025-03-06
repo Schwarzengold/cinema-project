@@ -1,17 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './components/HomePage';
-import MovieList from './components/MovieList';
-import MovieDetails from './components/MovieDetails';
-import Registration from './components/Registration';
-import Login from './components/Login';
-import SeatSelection from './components/SeatSelection';
-import TicketTypeSelection from './components/TicketTypeSelection';
-import Payment from './components/Payment';
-import Confirmation from './components/Confirmation';
-import AdminDashboard from './components/AdminDashboard';
-import AdminMovieForm from './components/AdminMovieForm';
-import AdminSessions from './components/AdminSessions';
+import HomePage from './components/Main/HomePage';
+import MovieList from './components/Movies/MovieList';
+import MovieDetails from './components/Movies/MovieDetails';
+import Registration from './components/Auth/Registration';
+import Login from './components/Auth/Login';
+import SeatSelection from './components/Booking/SeatSelection';
+import TicketTypeSelection from './components/Booking/TicketTypeSelection';
+import Payment from './components/Booking/Payment';
+import Confirmation from './components/Auth/Confirmation';
+import AdminDashboard from './components/Admin/AdminDashboard';
+import AdminMovieForm from './components/Admin/AdminMovieForm';
+import AdminSessions from './components/Admin/AdminSessions';
 
 function App() {
   return (

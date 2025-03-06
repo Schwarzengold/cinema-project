@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Layout from './Layout';
-import './SeatSelection.css';
+import Layout from '../Main/Layout';
+import '../Booking/SeatSelection.css';
 
 const API_BASE_URL = "https://localhost:7091";
 
