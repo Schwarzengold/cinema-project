@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './MovieCard.css';
+import '../Movies/MovieCard.css';
 
 const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
@@ -17,8 +17,14 @@ const MovieCard = ({ movie }) => {
   return (
     <div className="movie-card" onClick={handleCardClick}>
       <img src={movie.bannerUrl} alt={movie.title} />
+
       <div className="movie-card-info">
         <h3>{movie.title}</h3>
+        {movie.releaseDate && (
+          <p className="release-date">
+            Release Date: {new Date(movie.releaseDate).toLocaleDateString()}
+          </p>
+        )}
         <button onClick={handleBuyTicket}>Buy Ticket</button>
       </div>
     </div>

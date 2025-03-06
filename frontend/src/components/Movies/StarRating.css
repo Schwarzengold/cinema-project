@@ -1,0 +1,81 @@
+
+.star-rating-display {
+    position: relative; 
+    display: inline-block;
+    color: #ffd700;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .stars-outer {
+    position: relative;
+    display: inline-block;
+    color: #ccc;
+  }
+  
+  .stars-outer::before {
+    content: "★★★★★";
+    font-size: 1.6rem;
+    color: #ccc;
+  }
+  
+  .stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    color: #ffd700;
+  }
+  
+  .stars-inner::before {
+    content: "★★★★★";
+    font-size: 1.6rem;
+    
+  }
+  
+  .rating-number {
+    margin-left: 8px;
+    font-size: 1rem;
+    color: #fff;
+  }
+
+  .rating-popup {
+    position: absolute;
+    top: 2.5rem;
+    right: -1.2rem;
+    background-color: #1e1e1e;
+    color: #fff;
+    padding: 10px;
+    width: 180px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    z-index: 999;
+  }
+  
+  .rating-popup p {
+    margin: 0 0 10px 0;
+    font-size: 0.95rem;
+    color: #ddd;
+  }
+  
+  .interactive-star-rating {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+  }
+  
+  .star {
+    font-size: 1.8rem;
+    color: #ffd700;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .star-empty {
+    color: #555;
+  }
+  .star:hover {
+    transform: scale(1.2);
+  }
+  
