@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Layout from './Layout';
-import './MovieDetails.css';
-import './StarRating.css';
+import Layout from '../Main/Layout';
+import '../Movies/MovieDetails.css';
+import '../Movies/StarRating.css';
 
 const API_BASE_URL = "https://localhost:7091";
 

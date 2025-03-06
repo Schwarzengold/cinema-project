@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
-import MovieCard from './MovieCard';
-import Layout from './Layout';
+import MovieCard from '../Movies/MovieCard';
+import Layout from '../Main/Layout';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import './HomePage.css';
+import '../Main/HomePage.css';
 
 const API_BASE_URL = "https://localhost:7091";
 

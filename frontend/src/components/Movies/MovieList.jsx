@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import MovieCard from './MovieCard';
-import Layout from './Layout';
-import './MovieList.css';
+import MovieCard from '../Movies/MovieCard';
+import Layout from '../Main/Layout';
+import '../Movies/MovieList.css';
 
 const API_BASE_URL = "https://localhost:7091";
 
