@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Cinema_API.Data;
-using Cinema_API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using Cinema_API.Services;
+using Cinema_API.Models;
 
 namespace Cinema_API.Controllers
 {
@@ -12,26 +11,24 @@ namespace Cinema_API.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMovieService _movieService;
 
-        public MoviesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public MoviesController(IMovieService movieService)
         {
-            _context = context;
-            _userManager = userManager;
+            _movieService = movieService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetMovies()
         {
-            var movies = await _context.Movies.ToListAsync();
+            var movies = await _movieService.GetMoviesAsync();
             return Ok(movies);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMovie(int id)
         {
-            var movie = await _context.Movies.FindAsync(id);
+            var movie = await _movieService.GetMovieByIdAsync(id);
             if (movie == null)
                 return NotFound();
 
@@ -41,14 +38,7 @@ namespace Cinema_API.Controllers
         [HttpGet("{id}/averageRating")]
         public async Task<IActionResult> GetAverageRating(int id)
         {
-            var ratings = await _context.MovieRatings
-                .Where(r => r.MovieId == id)
-                .ToListAsync();
-
-            if (!ratings.Any())
-                return Ok(0.0); 
-
-            double average = ratings.Average(r => r.RatingValue);
+            var average = await _movieService.GetAverageRatingAsync(id);
             return Ok(average);
         }
 
@@ -56,10 +46,6 @@ namespace Cinema_API.Controllers
         [Authorize]
         public async Task<IActionResult> RateMovie(int id, [FromBody] RateMovieRequest request)
         {
-            var movieExists = await _context.Movies.AnyAsync(m => m.Id == id);
-            if (!movieExists)
-                return NotFound("Movie not found.");
-
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
                 return Unauthorized("You must be logged in.");
@@ -67,35 +53,12 @@ namespace Cinema_API.Controllers
             if (request.Rating < 1 || request.Rating > 5)
                 return BadRequest("Rating must be between 1 and 5.");
 
-            var existingRating = await _context.MovieRatings
-                .FirstOrDefaultAsync(r => r.MovieId == id && r.UserId == userId);
+            var success = await _movieService.RateMovieAsync(id, userId, request.Rating);
+            if (!success)
+                return NotFound("Movie not found.");
 
-            if (existingRating == null)
-            {
-                var ratingRecord = new MovieRating
-                {
-                    UserId = userId,
-                    MovieId = id,
-                    RatingValue = request.Rating
-                };
-                _context.MovieRatings.Add(ratingRecord);
-            }
-            else
-            {
-                existingRating.RatingValue = request.Rating;
-            }
-
-            await _context.SaveChangesAsync();
-            var average = await _context.MovieRatings
-                .Where(r => r.MovieId == id)
-                .AverageAsync(r => r.RatingValue);
-
+            var average = await _movieService.GetAverageRatingAsync(id);
             return Ok(new { averageRating = average });
         }
-    }
-
-    public class RateMovieRequest
-    {
-        public int Rating { get; set; }
     }
 }

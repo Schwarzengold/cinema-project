@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Cinema_API.Data;
@@ -16,6 +16,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 })
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
+
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 builder.Services.AddTransient<IAppEmailSender, SmtpEmailSender>();
 builder.Services.ConfigureApplicationCookie(options =>
